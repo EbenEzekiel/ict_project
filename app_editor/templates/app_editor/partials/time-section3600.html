@@ -1,17 +1,61 @@
 <div>
+    <!-- Duration -->
+    <div>File duration:  {{duration}} secs </div>
+
+    <!-- Testimony session -->
     <div>
-        <input type="text" id="title1" name="title2" required />
+        <h3>Testimony: </h3>
+        <label for="title-testimony">Title : &nbsp;</label>
+        <input type="text" id="title-testimony" name="title-testimony" placeholder="Date is enough" required />
+        
     </div>
     <div>
         <label>From: &nbsp; </label>
-        <input type="number" min="0" max = "59"/> 
+        <input class="time-boxes" type="number" min="0" max = "59" placeholder="min" /> 
         <span> : </span> 
-        <input type="number" min="0" max = "59"/>
+        <input class="time-boxes" type="number" min="0" max = "59" placeholder="sec"/>
 
         <label> &nbsp; To: &nbsp; </label>
-        <input type="number" min="0" max = "59"/> 
+        <input class="time-boxes" type="number" min="0" max = "59" placeholder="min"/> 
         <span> : </span> 
-        <input type="number" min="0" max = "59"/>
-        <div> {{duration}} secs </div>
+        <input class="time-boxes" type="number" min="0" max = "59" placeholder="sec"/>
+    </div>
+    <hr>
+     <!--  Choir Ministration  -->
+    <div>
+        <h3> Choir Ministration: </h3>
+        <label for="title-choir">Title : &nbsp;</label>
+        <input type="text" id="title-choir" name="title-choir" placeholder="Date is enough" required />
+        
+    </div>
+    <div>
+        <label>From: &nbsp; </label>
+        <input class="time-boxes" type="number" min="0" max = "59" placeholder="min" /> 
+        <span> : </span> 
+        <input class="time-boxes" type="number" min="0" max = "59" placeholder="sec"/>
+
+        <label> &nbsp; To: &nbsp; </label>
+        <input class="time-boxes" type="number" min="0" max = "59" placeholder="min"/> 
+        <span> : </span> 
+        <input class="time-boxes" type="number" min="0" max = "59" placeholder="sec"/>
+    </div>
+    <hr>
+     <!-- Sermon session -->
+    <div>
+        <h3>Sermon: </h3>
+        <label for="title-sermon">Title : &nbsp;</label>
+        <input type="text" id="title-sermon" name="title-sermon" placeholder="Actual sermon title" required />
+        
+    </div>
+    <div>
+        <label>From: &nbsp; </label>
+        <input class="time-boxes" type="number" min="0" max = "59" placeholder="min" /> 
+        <span> : </span> 
+        <input class="time-boxes" type="number" min="0" max = "59" placeholder="sec"/>
+
+        <label> &nbsp; To: &nbsp; </label>
+        <input class="time-boxes" type="number" min="0" max = "59" placeholder="min"/> 
+        <span> : </span> 
+        <input class="time-boxes" type="number" min="0" max = "59" placeholder="sec"/>
     </div>
 </div>   

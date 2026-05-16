@@ -26,13 +26,16 @@
                     </button>
                     <datalist id="list">
                         {% for file in dir %}
-                            <option value= {{file}} >
+                            <option value= "{{file}}" >
                         {% endfor %}
                     </datalist>
                 </div>
             </fieldset >
             <fieldset>
-                <div><h3>Working File: <span id="working-file"></span></h3></div>
+                <div>
+                    <h3>Working File: </h3>
+                    <input type="text" id="working-file" style="width: 100%; border: none; font-size: large; font-weight:600" readonly /   >
+                </div>
             </fieldset>
             <fieldset>
                 <div id= "times">

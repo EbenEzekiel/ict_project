@@ -7,7 +7,7 @@ let workingFile = document.getElementById("working-file");
 let get_duration = () => {
 
   // set the working file text content to the value of the file input
-  workingFile.textContent = fileInput.value;
+  workingFile.value = fileInput.value;
 
   fetch("http://127.0.0.1:8000/", {
     method: "POST",
