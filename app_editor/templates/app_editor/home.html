@@ -18,6 +18,12 @@
                 <div>
                     <label for="file-input" id="file-choice">Input File:</label>
                     <input id="file-input" list="list" name="file-input"  type="text" placeholder="Select video file here..." >
+                    <button type="button" onclick="clear_file_input()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://w3.org">
+                            <path d="M18 6L6 18" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 6L18 18" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
                     <datalist id="list">
                         {% for file in dir %}
                             <option value= {{file}} >
@@ -25,6 +31,9 @@
                     </datalist>
                 </div>
             </fieldset >
+            <fieldset>
+                <div><h3>Working File: <span id="working-file"></span></h3></div>
+            </fieldset>
             <fieldset style="width:max-content">
                 <div style="width:max-content">
                     <label for="testimony">
@@ -38,7 +47,7 @@
             </fieldset>
             <fieldset>
                 <div id= "times">
-
+                    
                 </div>
             </fieldset>
         </form>
@@ -47,4 +56,12 @@
     </main>
     </div>
 </body>
+<footer>
+
+    <script>
+    function clear_file_input() {
+        document.getElementById("file-input").value = "";
+    }
+    </script>
+</footer>
 </html>
