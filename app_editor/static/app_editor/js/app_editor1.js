@@ -15,64 +15,8 @@ let get_duration = () => {
       })
     })
     .then(response => response.text())
-    .then(content => document.getElementById("body").innerHTML = content)
-
-
-    // .then(response => response.json())
-    // .then(duration => duration["duration"])
-    // .then(data => {
-    //     if (data < 60){
-    //         times.innerHTML = `<div>
-    //                               <input type="text" id="title1" name="title1" required />
-    //                           </div>
-    //                           <div>
-    //                             <label>From: &nbsp; </label>
-    //                             <input type="number" min="0" max = "59" />
-    //                             <label> &nbsp; To: &nbsp; </label>
-    //                             <input type="number" min="0" max = "59"/>
-    //                           </div>`;
-    //     }
-    //     else if(data < 3600){
-    //         times.innerHTML = `<div>
-    //                             <input type="text" id="title1" name="title2" required />
-    //                           </div>
-    //                           <div>
-    //                             <label>From: &nbsp; </label>
-    //                             <input type="number" min="0" max = "59"/> 
-    //                             <span> : </span> 
-    //                             <input type="number" min="0" max = "59"/>
-
-    //                             <label> &nbsp; To: &nbsp; </label>
-    //                             <input type="number" min="0" max = "59"/> 
-    //                             <span> : </span> 
-    //                             <input type="number" min="0" max = "59"/>
-    //                           </div>`;
-    //     }
-    //     else{
-    //         times.innerHTML = `<div>
-    //                             <input type="text" id="title1" name="title1" required />
-    //                           </div>
-    //                           <div>
-    //                             <label>From: &nbsp; </label>
-    //                             <input type="number" min="0" max = "59"/> 
-    //                             <span> : </span> 
-    //                             <input type="number" min="0" max = "59"/>
-    //                             <span> : </span> 
-    //                             <input type="number" min="0" max = "59"/>
-
-    //                             <label> &nbsp; To: &nbsp; </label>
-    //                             <input type="number" min="0" max = "59"/> 
-    //                             <span> : </span> 
-    //                             <input type="number" min="0" max = "59"/>
-    //                             <span> : </span> 
-    //                             <input type="number" min="0" max = "2"/>
-    //                           </div>`;
-    //     }
-    // })
-    //   .catch(error => {
-    //     receivedDuration.value = "error detected";
-    //   });
+    .then(content => times.innerHTML = content)
+    .catch(error => times.innerHTML = "<h3>An error occured, contact Site Admin</h3>");
 }
 
-    
 fileInput.addEventListener("change", get_duration);
