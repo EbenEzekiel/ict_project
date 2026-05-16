@@ -12,10 +12,20 @@ from django.views.decorators.csrf import csrf_exempt
 media_root = "./media"
 
 # Create your views here.
+@csrf_exempt
 def home(request):
-    print("Here it is:_______",  os.listdir("./media"))
-    print("\nCWd", os.getcwd())
-    return render(request, 'app_editor/home.html', {"dir": os.listdir("./media/")})
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        file = data.get('file')
+        duration = 0
+        try:
+            duration = mpy.VideoFileClip(f"{media_root}/{file}").duration
+        except:
+            duration = mpy.AudioFileClip(f"{media_root}/{file}").duration
+        print(duration, "\nFile is: ", os.listdir(media_root), f"\nFile is {file}" )
+        return render(request, 'app_editor/partials/time-section.html', {"dir": os.listdir(media_root), "duration": duration})
+        # return HttpResponse("Good and good")
+    return render(request, 'app_editor/home.html', {"dir": os.listdir(media_root)})
 
 
 @csrf_exempt

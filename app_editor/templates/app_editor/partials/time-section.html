@@ -1,0 +1,51 @@
+{% extends "app_editor/home.html" %}
+
+{% block time-section %}
+    {% if duration < 60 %}
+        <div>
+            <input type="text" id="title1" name="title1" required />
+        </div>
+        <div>
+            <label>From: &nbsp; </label>
+            <input type="number" min="0" max = "59" />
+            <label> &nbsp; To: &nbsp; </label>
+            <input type="number" min="0" max = "59"/>
+        </div>
+    {% elif duration < 3600  %}
+        <div>
+            <input type="text" id="title1" name="title2" required />
+            </div>
+            <div>
+            <label>From: &nbsp; </label>
+            <input type="number" min="0" max = "59"/> 
+            <span> : </span> 
+            <input type="number" min="0" max = "59"/>
+
+            <label> &nbsp; To: &nbsp; </label>
+            <input type="number" min="0" max = "59"/> 
+            <span> : </span> 
+            <input type="number" min="0" max = "59"/>
+            <div> {{duration}} </div>
+        </div>
+    {% else %}
+        <div>
+            <input type="text" id="title1" name="title1" required />
+            </div>
+            <div>
+            <label>From: &nbsp; </label>
+            <input type="number" min="0" max = "59"/> 
+            <span> : </span> 
+            <input type="number" min="0" max = "59"/>
+            <span> : </span> 
+            <input type="number" min="0" max = "59"/>
+
+            <label> &nbsp; To: &nbsp; </label>
+            <input type="number" min="0" max = "59"/> 
+            <span> : </span> 
+            <input type="number" min="0" max = "59"/>
+            <span> : </span> 
+            <input type="number" min="0" max = "2"/>
+        </div>
+    {% endif %}    
+
+{% endblock %}
