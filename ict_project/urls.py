@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app_editor.app_editor_urls')),
     path('get_duration', include('app_editor.app_editor_urls')),
+    path('process', include('app_editor.app_editor_urls')),
     
 ]

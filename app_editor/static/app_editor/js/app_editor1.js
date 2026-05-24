@@ -3,6 +3,9 @@ let fileInput = document.getElementById("file-input");
 let receivedDuration = document.getElementById("received-duration");
 let times = document.getElementById("times");
 let workingFile = document.getElementById("working-file");
+const hidSubmitButton = document.querySelector("#submit-button");
+
+hidSubmitButton.style.display = "none";
 
 let get_duration = () => {
 
@@ -23,6 +26,7 @@ let get_duration = () => {
   .then(content => times.innerHTML = content)
   .catch(error => times.innerHTML = "<h3><i>An error occured, contact Site Admin...</i></h3>");
 
+  hidSubmitButton.style.display = "block";
 }
 
 fileInput.addEventListener("change", get_duration);

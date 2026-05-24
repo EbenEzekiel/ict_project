@@ -42,3 +42,15 @@ def home(request):
         return render(request, partial, {"duration": duration})
     return render(request, 'app_editor/home.html', {"dir": os.listdir(media_root)})
 
+@csrf_exempt
+def process(request):
+    data = json.loads(request.body)
+
+    #get titles
+    # title_testimony = data.get('title-testimony')
+    # title_choir = data.get('title-choir')
+    # title_sermon = data.get('title-sermon')
+    print("Received from frontend:")
+    for k,v in data.items():
+        print(k, " =>  ", v)
+    return JsonResponse({"message": "Success"})
