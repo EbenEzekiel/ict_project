@@ -21,9 +21,9 @@ def home(request):
 
         # get duration
         try:
-            duration = mpy.VideoFileClip(f"{media_root}/{file}").duration
+            duration = int(mpy.VideoFileClip(f"{media_root}/{file}").duration)
         except:
-            duration = mpy.AudioFileClip(f"{media_root}/{file}").duration
+            duration = int(mpy.AudioFileClip(f"{media_root}/{file}").duration)
         
         # determine which partial to return based on the duration of the file
         time_partial_dict = {
@@ -33,13 +33,21 @@ def home(request):
         }
         if duration < 60:
             partial = time_partial_dict[60]
+            # Convert time in seconds to Hr:min:sec format
+            duration_ = f"{duration} sec"
         elif duration < 3600:
             partial = time_partial_dict[3600]
+            # Convert time in seconds to Hr:min:sec format
+            min, sec = (duration % 3600) // 60, duration % 60
+            duration_ = f"{min:02}min : {sec:02}sec"
         else:
             partial = time_partial_dict[7200]
+            # Convert time in seconds to Hr:min:sec format
+            hr, min, sec = duration // 3600, (duration % 3600) // 60, duration % 60
+            duration_ = f"{hr}hr : {min:02}min : {sec:02}sec"
 
         # return partial
-        return render(request, partial, {"duration": duration})
+        return render(request, partial, {"duration": duration, "duration_" : duration_})
     return render(request, 'app_editor/home.html', {"dir": os.listdir(media_root)})
 
 @csrf_exempt
@@ -77,11 +85,11 @@ def process(request):
             "testimony": [f"{data.get("t1-hr-testimony")}:{data.get("t1-min-testimony")}:{data.get("t1-sec-testimony")}", 
                           f"{data.get("t2-hr-testimony")}:{data.get("t2-min-testimony")}:{data.get("t2-sec-testimony")}"],
 
-            "choir": [f"{data.get("t1-hr-testimony")}:{data.get("t1-min-choir")}:{data.get("t1-sec-choir")}", 
-                      f"{data.get("t2-hr-testimony")}:{data.get("t2-min-choir")}:{data.get("t2-sec-choir")}"],
+            "choir": [f"{data.get("t1-hr-choir")}:{data.get("t1-min-choir")}:{data.get("t1-sec-choir")}", 
+                      f"{data.get("t2-hr-choir")}:{data.get("t2-min-choir")}:{data.get("t2-sec-choir")}"],
 
-            "sermon": [f"{data.get("t1-hr-testimony")}:{data.get("t1-min-sermon")}:{data.get("t1-sec-sermon")}",
-                       f"{data.get("t1-hr-testimony")}:{data.get("t2-min-sermon")}:{data.get("t2-sec-sermon")}"], 
+            "sermon": [f"{data.get("t1-hr-sermon")}:{data.get("t1-min-sermon")}:{data.get("t1-sec-sermon")}",
+                       f"{data.get("t2-hr-sermon")}:{data.get("t2-min-sermon")}:{data.get("t2-sec-sermon")}"], 
         }
 
     # #process audio files
