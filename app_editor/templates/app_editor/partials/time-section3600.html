@@ -1,6 +1,9 @@
 <div>
     <!-- Duration -->
     <div><h4>File duration:  {{duration}} secs</h4> </div>
+    <div>
+        <input type="number" name = "duration" value={{duration}}  hidden />
+    </div>
 
     <!-- Testimony session -->
     <div>
@@ -22,14 +25,18 @@
     </div>
     <div>
         <span>Options: 
-            <label for="options-testimony-off">&nbsp; Off: </label>
             <input type="radio" id="options-testimony-off" name="options-testimony" value="off">
-            <label for="options-testimony-audio">&nbsp; Audio: </label>
+            <label for="options-testimony-off">&nbsp; Off: </label>
+            
             <input type="radio" id="options-testimony-audio" name="options-testimony" value="audio">
-            <label for="options-testimony-video">&nbsp; Video:</label>
+            <label for="options-testimony-audio">&nbsp; Audio: </label>
+            
             <input type="radio" id="options-testimony-video" name="options-testimony" value="video">
-            <label for="options-testimony-audiovideo">&nbsp; Audio and Video: </label>
+            <label for="options-testimony-video">&nbsp; Video:</label>
+            
             <input type="radio" id="options-testimony-audiovideo" name="options-testimony" value="both">
+            <label for="options-testimony-audiovideo">&nbsp; Audio and Video: </label>
+            
         </span>
     </div>
 
@@ -55,14 +62,18 @@
     </div>
     <div>
         <span>Options: 
-            <label for="options-choir-off"> &nbsp; Off: </label>
             <input type="radio" id="options-choir-off" name="options-choir" value="off">
-            <label for="options-choir-audio">&nbsp; Audio: </label>
+            <label for="options-choir-off"> &nbsp; Off: </label>
+
             <input type="radio" id="options-choir-audio" name="options-choir" value="audio">
-            <label for="options-choir-video">&nbsp; Video: </label>
+            <label for="options-choir-audio">&nbsp; Audio: </label>
+
             <input type="radio" id="options-choir-video" name="options-choir" value="video">
-            <label for="options-choir-audiovideo">&nbsp; Audio and Video: </label>
+            <label for="options-choir-video">&nbsp; Video: </label>
+
             <input type="radio" id="options-choir-audiovideo" name="options-choir" value="both">
+            <label for="options-choir-audiovideo">&nbsp; Audio and Video: </label>
+
         </span>
 
     </div>
@@ -89,14 +100,18 @@
     </div>
     <div>
         <span>Options: 
-            <label for="options-sermon-off">Off: &nbsp;</label>
             <input type="radio" id="options-sermon-off" name="options-sermon" value="off">
-            <label for="options-sermon-audio">&nbsp; Audio:</label>
+            <label for="options-sermon-off">Off: &nbsp;</label>
+            
             <input type="radio" id="options-sermon-audio" name="options-sermon" value="audio">
-            <label for="options-sermon-video">&nbsp; Video:</label>
+            <label for="options-sermon-audio">&nbsp; Audio:</label>
+            
             <input type="radio" id="options-sermon-video" name="options-sermon" value="video">
-            <label for="options-sermon-audiovideo">&nbsp; Audio and Video:</label>
+            <label for="options-sermon-video">&nbsp; Video:</label>
+            
             <input type="radio" id="options-sermon-audiovideo" name="options-sermon" value="both">
+            <label for="options-sermon-audiovideo">&nbsp; Audio and Video:</label>
+            
         </span>
 
     </div>
