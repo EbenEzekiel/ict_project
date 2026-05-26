@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import os
 import moviepy as mpy
+from . import helpers
 
 import json
 from django.http import JsonResponse, HttpResponse
@@ -26,28 +27,13 @@ def home(request):
             duration = int(mpy.AudioFileClip(f"{media_root}/{file}").duration)
         
         # determine which partial to return based on the duration of the file
-        time_partial_dict = {
-            60 : 'app_editor/partials/time-section60.html',
-            3600 : 'app_editor/partials/time-section3600.html',
-            7200: 'app_editor/partials/time-section7200.html',
-        }
-        if duration < 60:
-            partial = time_partial_dict[60]
-            # Convert time in seconds to Hr:min:sec format
-            duration_ = f"{duration} sec"
-        elif duration < 3600:
-            partial = time_partial_dict[3600]
-            # Convert time in seconds to Hr:min:sec format
-            min, sec = (duration % 3600) // 60, duration % 60
-            duration_ = f"{min:02}min : {sec:02}sec"
-        else:
-            partial = time_partial_dict[7200]
-            # Convert time in seconds to Hr:min:sec format
-            hr, min, sec = duration // 3600, (duration % 3600) // 60, duration % 60
-            duration_ = f"{hr}hr : {min:02}min : {sec:02}sec"
+        partial = helpers.choose_partial(duration)
+
+        # Convert time in seconds to Hr:min:sec format
+        formatted_duration = helpers.format_seconds(duration)
 
         # return partial
-        return render(request, partial, {"duration": duration, "duration_" : duration_})
+        return render(request, partial, {"duration": duration, "formatted_duration" : formatted_duration})
     return render(request, 'app_editor/home.html', {"dir": os.listdir(media_root)})
 
 @csrf_exempt
