@@ -44,31 +44,34 @@ def process(request):
     duration = int(float(data.get("duration")))
     
     wf =  media_root + f"/{wf}"
-    video = mpy.VideoFileClip(wf)
     
-    # load video file
-    video = mpy.VideoFileClip(wf)
+    # load video/audio file
+    clip = helpers.read_file(wf)
+
     # get time range dictionary
     time_dict = helpers.get_time_range(data, duration)
 
     # #process audio files
     if data.get("options-testimony") == 'audio' or data.get("options-testimony") == 'audiovideo':
-        video.subclipped(time_dict["testimony"][0] , 
+        clip['audio'].subclipped(time_dict["testimony"][0] , 
                          time_dict["testimony"][1]
-                         ).audio.write_audiofile(f"{media_root}/output/{data.get("title-testimony")}.mp3")
+                         ).write_audiofile(f"{media_root}/output/{data.get("title-testimony")}.mp3")
 
     if data.get("options-choir") == 'audio' or data.get("options-choir") == 'audiovideo':
-        video.subclipped(time_dict["choir"][0] , 
+        clip['audio'].subclipped(time_dict["choir"][0] , 
                          time_dict["choir"][1]
-                         ).audio.write_audiofile(f"{media_root}/output/{data.get("title-choir")}.mp3")
+                         ).write_audiofile(f"{media_root}/output/{data.get("title-choir")}.mp3")
 
     if data.get("options-sermon") == 'audio' or data.get("options-sermon") == 'audiovideo':
         #make intro and outro speech
-        intro_speech = helpers.text_to_speech(data.get("intro"), f"{media_root}/assets/introspeech.mp3")
-        outro_speech = helpers.text_to_speech(data.get("outro"), f"{media_root}/assets/outrospeech.mp3")
+        # make intro_speech
+        helpers.text_to_speech(data.get("intro"), f"{media_root}/assets/introspeech.mp3")
+
+        # make outro_speech
+        helpers.text_to_speech(data.get("outro"), f"{media_root}/assets/outrospeech.mp3")
 
         # subclip sermon audio
-        sermon_subclip = video.subclipped(time_dict["sermon"][0] , time_dict["sermon"][1]).audio
+        sermon_subclip = clip['audio'].subclipped(time_dict["sermon"][0] , time_dict["sermon"][1]).audio
 
         # Concatenate audio files and clips
         sermon_audio = helpers.concatenate_audios(sermon_subclip)
@@ -78,21 +81,21 @@ def process(request):
 
     #process video files
     if data.get("options-testimony") == 'video' or data.get("options-testimony") == 'audiovideo':
-        video.subclipped(time_dict["testimony"][0] , 
+        clip['video'].subclipped(time_dict["testimony"][0] , 
                          time_dict["testimony"][1]
                          ).write_videofile(f"{media_root}/output/{data.get("title-testimony")}.mp4")
 
     if data.get("options-choir") == 'video' or data.get("options-choir") == 'audiovideo':
-        video.subclipped(time_dict["choir"][0] , 
+        clip['video'].subclipped(time_dict["choir"][0] , 
                          time_dict["choir"][1]
                          ).write_videofile(f"{media_root}/output/{data.get("title-choir")}.mp4")
 
     if data.get("options-sermon") == 'video' or data.get("options-sermon") == 'audiovideo':
-        video.subclipped(time_dict["sermon"][0] , 
+        clip['video'].subclipped(time_dict["sermon"][0] , 
                          time_dict["sermon"][1]
                          ).write_videofile(f"{media_root}/output/{data.get("title-sermon")}.mp4")
     
     # close read video
-    video.close()
+    helpers.close_clip(clip)
 
     return JsonResponse({"message": "Success"})

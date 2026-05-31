@@ -83,3 +83,22 @@ def get_time_range(data, duration):
             "sermon": [f"{data.get("t1-hr-sermon")}:{data.get("t1-min-sermon")}:{data.get("t1-sec-sermon")}",
                        f"{data.get("t2-hr-sermon")}:{data.get("t2-min-sermon")}:{data.get("t2-sec-sermon")}"], 
         }
+
+def read_file(wf):
+    clip, clip_type = '', ''
+    try:
+        video = mpy.VideoFileClip(wf)
+        audio = video.audio
+        clip_type = "video"
+    except:
+        video = None
+        audio = mpy.AudioFileClip(wf)
+        clip_type = "audio"
+    return {'audio':audio, 'video': video, 'type':clip_type}
+
+def close_clip(clip):
+    clip['audio'].close()
+    try:
+        clip['video'].close()
+    except:
+        pass
