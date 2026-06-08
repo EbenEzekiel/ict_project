@@ -20,7 +20,10 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app_editor.app_editor_urls')),
+    path('sundays', include('app_editor.app_editor_urls')),
     path('get_duration', include('app_editor.app_editor_urls')),
     path('process', include('app_editor.app_editor_urls')),
+    path('splice', include('app_editor.app_editor_urls')),
+    
     
 ]

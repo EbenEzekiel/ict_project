@@ -13,8 +13,12 @@ from django.views.decorators.csrf import csrf_exempt
 media_root = "./media"
 
 # Create your views here.
-@csrf_exempt
 def home(request):
+    return render(request, 'app_editor/home.html')
+
+
+@csrf_exempt
+def sundays(request):
     if request.method == 'POST':
         # receive the file name from the frontend and return the duration of the file
         data = json.loads(request.body)
@@ -34,7 +38,7 @@ def home(request):
 
         # return partial
         return render(request, partial, {"duration": duration, "formatted_duration" : formatted_duration})
-    return render(request, 'app_editor/home.html', {"dir": os.listdir(media_root)})
+    return render(request, 'app_editor/sundays.html', {"dir": os.listdir(media_root)})
 
 @csrf_exempt
 def process(request):
@@ -56,7 +60,8 @@ def process(request):
         clip['audio'].subclipped(time_dict["testimony"][0] , 
                          time_dict["testimony"][1]
                          ).write_audiofile(f"{media_root}/output/{data.get("title-testimony")}.mp3")
-
+        print("This should print first")
+        
     if data.get("options-choir") == 'audio' or data.get("options-choir") == 'audiovideo':
         clip['audio'].subclipped(time_dict["choir"][0] , 
                          time_dict["choir"][1]
@@ -71,7 +76,7 @@ def process(request):
         helpers.text_to_speech(data.get("outro"), f"{media_root}/assets/outrospeech.mp3")
 
         # subclip sermon audio
-        sermon_subclip = clip['audio'].subclipped(time_dict["sermon"][0] , time_dict["sermon"][1]).audio
+        sermon_subclip = clip['audio'].subclipped(time_dict["sermon"][0] , time_dict["sermon"][1])
 
         # Concatenate audio files and clips
         sermon_audio = helpers.concatenate_audios(sermon_subclip)
@@ -95,7 +100,45 @@ def process(request):
                          time_dict["sermon"][1]
                          ).write_videofile(f"{media_root}/output/{data.get("title-sermon")}.mp4")
     
-    # close read video
+    # close read file
     helpers.close_clip(clip)
+    print("\nThis should print second")
 
     return JsonResponse({"message": "Success"})
+
+def compress(request):
+    data = json.loads(request.body)
+    file = data.get("file")
+    name = file.split(".")[0]
+    clip = helpers.read_file(f"{media_root}/{file}")
+    if clip.type == 'audio':
+        clip['audio'].write_audiofile(
+            f"{media_root}/{name}_compressed.m4a",
+            codec="aac",
+            bitrate="64k"
+        )
+    if clip.type == 'video':
+        clip['video'].write_videofile(
+            f"{media_root}/{name}_compressed.mp4",
+            codec="libx264",
+            bitrate="500k"
+        )
+
+def splice(request):
+    # data = json.loads(request.body)
+    # file = data.get("file")
+    # name = file.split(".")[0]
+    # clip = helpers.read_file(f"{media_root}/{file}")
+    # if clip.type == 'audio':
+    #     clip['audio'].subclipped(0, 10).write_audiofile(
+    #         f"{media_root}/{name}_spliced.m4a",
+    #         codec="aac",
+    #         bitrate="64k"
+    #     )
+    # if clip.type == 'video':
+    #     clip['video'].subclipped(0, 10).write_videofile(
+    #         f"{media_root}/{name}_spliced.mp4",
+    #         codec="libx264",
+    #         bitrate="500k"
+    #     )   
+    return render(request, 'app_editor/splice.html', {"dir": os.listdir(media_root)})

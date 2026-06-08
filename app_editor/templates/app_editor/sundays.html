@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICT Editor - Sunday Worship App</title>
+    <script defer src = "{% static 'app_editor/js/app_editor1.js' %}"></script>
+    <script defer src = "{% static 'app_editor/js/app_editor2a.js' %}?v=2"></script>
+
+</head>
+<body>
+    <main>
+        <fieldset style="width:max-content">
+            <div>
+                File Choice 
+            </div>
+            <div>
+                <label for="file-input" id="file-choice">Input File:</label>
+                <input id="file-input" list="list" name="file-input"  type="text" placeholder="Select video file here..." >
+                <button type="button" onclick="clear_file_input()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://w3.org">
+                        <path d="M18 6L6 18" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6 6L18 18" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <datalist id="list">
+                    {% for file in dir %}
+                        <option value= "{{file}}" >
+                    {% endfor %}
+                </datalist>
+            </div>
+        </fieldset >
+
+        <form id="form" action=""  >
+            <!-- enctype="multipart/form-data" -->
+            <fieldset>
+                <div>
+                    <h3>Working File: </h3>
+                    <input type="text" id="working-file" name="working-file" style="width: 100%; border: none; font-size: large; font-weight:600" readonly />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div id= "times">
+                    
+                </div>
+            </fieldset>
+            <fieldset>
+                <div>
+                    <button id="submit-button" type="button" >
+                        Submit
+                    </button>
+                    <div id="response">sample response</div>
+                </div>
+            </fieldset>
+        </form>
+        
+
+    </main>
+    </div>
+</body>
+<footer>
+
+    <script>
+        function clear_file_input() {
+            document.getElementById("file-input").value = "";
+        }
+
+        // let form = document.getElementById("form");
+
+        // function send_to_process(){
+            
+        //         console.log("Sending for processing...")
+        //         let details = new FormData(form).entries();
+
+        //         fetch("http://127.0.0.1:8000/process", {
+        //             method: "POST",
+        //             headers: {
+        //                 "Content-Type": "application/json"
+        //             },
+        //             body: JSON.stringify(Object.fromEntries(details))
+        //         })                
+
+        // }
+    </script>
+</footer>
+</html>

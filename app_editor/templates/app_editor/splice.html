@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src = "{% static 'app_editor/js/app_editor2b.js' %}"></script>
+</head>
+<body>
+    <div>
+        <h1>ICT Editor - Splice </h1>
+    </div>
+    <div>
+        <div>
+            <h3>Input File:</h3>
+            <input id="file-input" list="list" name="file-input"  type="text" placeholder="Select video file here..." >
+            <button type="button" onclick="clear_file_input()">
+                <img src="{% static 'app_editor/remove_icon.svg' %}" alt="Remove Time Range" width="24" height="24">
+            </button>
+            <datalist id="list">
+                    {% for file in dir %}
+                        <option value= "{{file}}" >
+                    {% endfor %}
+                </datalist>
+
+        </div>
+        
+        <div id="time-ranges">
+            <div class="time-values">
+                <input type="number" min=0 max=5  name="" id="" placeholder="Hrs"> <span>:</span>
+                <input type="number" min=0 max=59 name="" id="" placeholder="Mins"> <span>:</span>
+                <input type="number" min=0 max=59 name="" id="" placeholder="Secs"> <span> - </span>
+                
+                <input type="number" min=0 max=5  name="" id="" placeholder="Hrs"> <span>:</span>
+                <input type="number" min=0 max=59 name="" id="" placeholder="Mins"> <span>:</span>
+                <input type="number" min=0 max=59 name="" id="" placeholder="Secs">
+
+                <button class="remove-time-button" type="button" onclick="remove_time_input()">
+                    <img src="{% static 'app_editor/remove_icon.svg' %}" alt="Remove Time Range" width="24" height="24">
+                </button>
+            </div>
+        </div>
+        <div class="buttons">
+            <button id="add-time-button" type="button" >
+                <img src="{% static 'app_editor/add_icon.svg' %}" alt="Add Time Range" width="24" height="24">
+            </button>
+
+            <button type="button" id="process">
+                Process
+            </button>
+        </div>
+    </div>
+</body>
+<footer>
+    <script>
+        function clear_file_input() {
+            document.getElementById("file-input").value = "";
+        }
+    </script>
+</footer>
+</html>

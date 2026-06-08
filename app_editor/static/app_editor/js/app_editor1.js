@@ -12,7 +12,7 @@ let get_duration = () => {
   // set the working file text content to the value of the file input
   workingFile.value = fileInput.value;
 
-  fetch("http://127.0.0.1:8000/", {
+  fetch("http://127.0.0.1:8000/sundays", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
