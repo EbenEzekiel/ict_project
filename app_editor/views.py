@@ -124,21 +124,38 @@ def compress(request):
             bitrate="500k"
         )
 
+@csrf_exempt
 def splice(request):
-    # data = json.loads(request.body)
-    # file = data.get("file")
-    # name = file.split(".")[0]
-    # clip = helpers.read_file(f"{media_root}/{file}")
-    # if clip.type == 'audio':
-    #     clip['audio'].subclipped(0, 10).write_audiofile(
-    #         f"{media_root}/{name}_spliced.m4a",
-    #         codec="aac",
-    #         bitrate="64k"
-    #     )
-    # if clip.type == 'video':
-    #     clip['video'].subclipped(0, 10).write_videofile(
-    #         f"{media_root}/{name}_spliced.mp4",
-    #         codec="libx264",
-    #         bitrate="500k"
-    #     )   
+    if request.method == "POST":
+        data = json.loads(request.body)
+        time = data.get("time")
+        file = data.get("file")
+        name = file.split(".")[0]
+        clip = helpers.read_file(f"{media_root}/{file}")
+        try:
+            clip_box = []
+            if clip['type'] == 'audio':
+                for t in time:
+                    clip_box.append(
+                        clip['audio'].subclipped(t['start'], t['end'])        
+                    )
+                mpy.concatenate_audioclips(clip_box).write_audiofile(
+                    f"{media_root}/output/{name}_spliced.m4a",
+                    codec="aac",
+                    bitrate="64k"
+                )
+            if clip["type"] == 'video':
+                for t in time:
+                    clip_box.append(
+                        clip['video'].subclipped(t['start'], t['end'])        
+                    )
+                mpy.concatenate_videoclips(clip_box).write_videofile(
+                    f"{media_root}/output/{name}_spliced.mp4",
+                    codec="libx264",
+                    bitrate="500k"
+                )
+            return JsonResponse({'text': "File spliced successfuly!"})
+        except Exception as e:
+            return JsonResponse({'text': str(e)})
+
     return render(request, 'app_editor/splice.html', {"dir": os.listdir(media_root)})

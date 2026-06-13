@@ -36,7 +36,7 @@
                 <input type="number" min=0 max=59 name="" id="" placeholder="Mins"> <span>:</span>
                 <input type="number" min=0 max=59 name="" id="" placeholder="Secs">
 
-                <button class="remove-time-button" type="button" onclick="remove_time_input()">
+                <button class="remove-time-button" id=1 type="button" onclick="remove_time_input(1)">
                     <img src="{% static 'app_editor/remove_icon.svg' %}" alt="Remove Time Range" width="24" height="24">
                 </button>
             </div>
@@ -51,11 +51,19 @@
             </button>
         </div>
     </div>
+    <div id="feedback">
+
+    </div>
 </body>
 <footer>
     <script>
         function clear_file_input() {
             document.getElementById("file-input").value = "";
+        }
+
+        function remove_time_input(id) {
+            console.log(id);
+            document.getElementById(id).parentElement.remove();
         }
     </script>
 </footer>
